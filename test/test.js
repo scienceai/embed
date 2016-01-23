@@ -74,32 +74,33 @@ describe('treefy', function(){
     jsonld.flatten(doc, {'@context': doc['@context']}, function(err, flattened) {
       if (err) throw err;
 
-      let tree = treefy('ex:article', flattened);
-      assert.deepEqual(tree, {
-        '@id': 'ex:article',
+      let frame = {
+        '@context': doc['@context'],
         '@type': 'ScholarlyArticle',
-        author: [
-          {
-            '@type': 'Role',
-            author: [
-              {
-                '@id': 'ex:peter',
-                '@type': 'Person',
-                affiliation: {
-                  '@type': 'Organization',
-                  member: [ 'ex:peter' ],
-                  name: 'Merck'
-                },
-                givenName: 'Peter',
-                name: 'Peter'
+        '@embed': '@always'
+      };
+
+      jsonld.frame(flattened, frame, {omitDefault: true}, function(err, framed) {
+        if (err) throw err;
+
+        assert.deepEqual(
+          treefy('ex:article', flattened),
+          (function rmBlankNodes(obj) {
+            if (obj['@id'] && obj['@id'].startsWith('_:')) {
+              delete obj['@id'];
+            }
+            for (let i in obj) {
+              if (typeof obj[i] === 'object') {
+                rmBlankNodes(obj[i]);
               }
-            ]
-          }
-        ],
-        sameAs: [ 'ex:a', 'ex:b' ]
+            }
+            return obj;
+          })(framed['@graph'])[0]
+        );
+        done();
+
       });
 
-      done();
     });
 
 

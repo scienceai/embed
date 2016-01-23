@@ -1,5 +1,3 @@
-import util from 'util';
-
 export default function treefy(node, doc, ctx, _stack) {
   let graph = doc['@graph'] || doc;
   ctx = ctx || doc['@context'];
@@ -52,7 +50,6 @@ export default function treefy(node, doc, ctx, _stack) {
     }, {});
   }
 
-  return done;
 }
 
 
