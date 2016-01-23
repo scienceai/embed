@@ -1,0 +1,32 @@
+{
+  "name": "treefy",
+  "version": "0.0.0",
+  "description": "makes trees out of flattened JSON-LD documents",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register",
+    "prepublish": "rm -rf dist && ./node_modules/.bin/babel src --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scienceai/treefy.git"
+  },
+  "keywords": [
+    "JSON-LD",
+    "graph",
+    "tree"
+  ],
+  "author": "Sebastien Ballesteros",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/scienceai/treefy/issues"
+  },
+  "homepage": "https://github.com/scienceai/treefy#readme",
+  "devDependencies": {
+    "babel-cli": "^6.4.5",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "jsonld": "^0.4.5",
+    "mocha": "^2.3.4"
+  }
+}
