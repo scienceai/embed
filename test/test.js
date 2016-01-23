@@ -29,22 +29,10 @@ describe('treefy', function(){
           "@container": "@set",
           "@type": "@id"
         },
-        "Organization": {
-          "@id": "http://schema.org/Organization",
-          "@type": "@id"
-        },
-        "Person": {
-          "@id": "http://schema.org/Person",
-          "@type": "@id"
-        },
-        "ScholarlyArticle": {
-          "@id": "http://schema.org/ScholarlyArticle",
-          "@type": "@id"
-        },
-        "Role": {
-          "@id": "http://schema.org/Role",
-          "@type": "@id"
-        }
+        "Organization": "http://schema.org/Organization",
+        "Person": "http://schema.org/Person",
+        "ScholarlyArticle": "http://schema.org/ScholarlyArticle",
+        "Role": "http://schema.org/Role"
       },
 
       "@id": "ex:article",
@@ -76,8 +64,8 @@ describe('treefy', function(){
 
       let frame = {
         '@context': doc['@context'],
-        '@type': 'ScholarlyArticle',
-        '@embed': '@always'
+        '@embed': '@always',
+        '@type': 'ScholarlyArticle'
       };
 
       jsonld.frame(flattened, frame, {omitDefault: true}, function(err, framed) {
