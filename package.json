@@ -1,15 +1,15 @@
 {
-  "name": "treefy",
+  "name": "@scienceai/embed",
   "version": "0.0.0",
   "description": "makes trees out of flattened JSON-LD documents",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --compilers js:babel-register",
     "prepublish": "rm -rf dist && ./node_modules/.bin/babel src --out-dir dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scienceai/treefy.git"
+    "url": "git+https://github.com/scienceai/embed.git"
   },
   "keywords": [
     "JSON-LD",
@@ -19,9 +19,9 @@
   "author": "Sebastien Ballesteros",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/scienceai/treefy/issues"
+    "url": "https://github.com/scienceai/embed/issues"
   },
-  "homepage": "https://github.com/scienceai/treefy#readme",
+  "homepage": "https://github.com/scienceai/embed#readme",
   "devDependencies": {
     "babel-cli": "^6.4.5",
     "babel-preset-es2015": "^6.3.13",

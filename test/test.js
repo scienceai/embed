@@ -1,9 +1,9 @@
 import assert from 'assert';
-import treefy from '../src';
+import embed from '../src';
 import jsonld from 'jsonld';
 import util from 'util';
 
-describe('treefy', function(){
+describe('embed', function() {
   it('should create a tree from a graph', function(done) {
     let doc = {
       "@context": {
@@ -15,15 +15,11 @@ describe('treefy', function(){
         },
         "author": {
           "@id": "http://schema.org/author",
-          "@container": "@list",
           "@type": "@id"
         },
         "name": "http://schema.org/name",
         "givenName": "http://schema.org/givenName",
-        "affiliation": {
-          "@id": "http://schema.org/affiliation",
-          "@type": "@id"
-        },
+        "affiliation": "http://schema.org/affiliation",
         "member": {
           "@id": "http://schema.org/member",
           "@container": "@set",
@@ -32,9 +28,9 @@ describe('treefy', function(){
         "Organization": "http://schema.org/Organization",
         "Person": "http://schema.org/Person",
         "ScholarlyArticle": "http://schema.org/ScholarlyArticle",
-        "Role": "http://schema.org/Role"
+        "Role": "http://schema.org/Role",
+        "datePublished": "http://schema.org/datePublished"
       },
-
       "@id": "ex:article",
       "@type": "ScholarlyArticle",
       "sameAs": ["ex:a", "ex:b"],
@@ -58,7 +54,6 @@ describe('treefy', function(){
       }
     };
 
-
     jsonld.flatten(doc, {'@context': doc['@context']}, function(err, flattened) {
       if (err) throw err;
 
@@ -70,27 +65,13 @@ describe('treefy', function(){
 
       jsonld.frame(flattened, frame, {omitDefault: true}, function(err, framed) {
         if (err) throw err;
-
         assert.deepEqual(
-          treefy('ex:article', flattened),
-          (function rmBlankNodes(obj) {
-            if (obj['@id'] && obj['@id'].startsWith('_:')) {
-              delete obj['@id'];
-            }
-            for (let i in obj) {
-              if (typeof obj[i] === 'object') {
-                rmBlankNodes(obj[i]);
-              }
-            }
-            return obj;
-          })(framed['@graph'])[0]
+          embed('ex:article', flattened),
+          framed['@graph'][0]
         );
         done();
-
       });
-
     });
-
 
   });
 });
