@@ -140,7 +140,7 @@ will generate:
 }
 ```
 
-If `@type` are not known (not that `@type` can be a list), JSON-LD
+If `@type` are not known (note that `@type` can be a list), JSON-LD
 framing support duck-typing.
 For instance the frame:
 
