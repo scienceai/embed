@@ -1,6 +1,32 @@
 # embed
 
+[![CircleCI](https://circleci.com/gh/scienceai/embed.svg?style=svg)](https://circleci.com/gh/scienceai/embed)
+
 Context free tree creation out of flattened JSON-LD documents.
+
+## `embed`
+
+`embed` can be used to re-create trees from the nodes of a JSON-LD
+flattened document. `embed` is not as flexible as JSON-LD framing but
+does not require a `@context` and can be performed efficiently as a
+sync operation.
+
+
+### API `embed(node, graph)`
+
+```
+import embed from '@scienceai/embed';
+
+const tree = embed(node, graph);
+```
+
+- `graph`: A graph or a `nodeMap`. Note that the `@id` of the document
+  nodes must be valid CURIEs (including blank nodes) or URLs.
+- `node`: A node of the graph (or an `@id` as a string).
+
+
+---
+
 
 ## Introduction to JSON-LD framing
 
@@ -210,24 +236,3 @@ will result in:
   ]
 }
 ```
-
-## `embed`
-
-`embed` can be used to re-create trees from the nodes of a JSON-LD
-flattened document. `embed` is not as flexible as JSON-LD framing but
-does not require a `@context` and can be performed efficiently as a
-sync operation.
-
-
-### API `embed(node, graph)`
-
-```
-import embed from '@scienceai/embed';
-
-let tree = embed(node, graph);
-```
-
-- `graph`: the `@graph` from a flattened JSON-LD document. Note that
-  the `@id` of the document nodes must be valid CURIEs (including
-  blank nodes) or URLs.
-- `node`: A node of the graph (or an `@id` as a string).

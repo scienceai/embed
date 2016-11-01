@@ -4,8 +4,10 @@ import jsonld from 'jsonld';
 import util from 'util';
 
 describe('embed', function() {
-  it('should create a tree from a graph', function(done) {
-    let doc = {
+  let framed, flattened;
+
+  before(done => {
+    const doc = {
       "@context": {
         "ex": "http://example.com",
         "sameAs":  {
@@ -53,25 +55,39 @@ describe('embed', function() {
         }
       }
     };
-
-    jsonld.flatten(doc, {'@context': doc['@context']}, function(err, flattened) {
-      if (err) throw err;
-
-      let frame = {
+    jsonld.flatten(doc, {'@context': doc['@context']}, (err, _flattened) => {
+      if (err) return done(err);
+      flattened = _flattened;
+      const frame = {
         '@context': doc['@context'],
         '@embed': '@always',
         '@type': 'ScholarlyArticle'
       };
-
-      jsonld.frame(flattened, frame, {omitDefault: true}, function(err, framed) {
-        if (err) throw err;
-        assert.deepEqual(
-          embed('ex:article', flattened),
-          framed['@graph'][0]
-        );
+      jsonld.frame(flattened, frame, { omitDefault: true }, (err, _framed) => {
+        if (err) return done(err);
+        framed = _framed;
         done();
       });
     });
-
   });
+
+  it('should create a tree from a graph', () => {
+    assert.deepEqual(
+      embed('ex:article', flattened),
+      framed['@graph'][0]
+    );
+  });
+
+  it('should create a tree from a nodeMap', () => {
+    const nodeMap = flattened['@graph'].reduce((nodeMap, node) => {
+      nodeMap[node['@id']] = node;
+      return nodeMap;
+    }, {});
+
+    assert.deepEqual(
+      embed('ex:article', nodeMap),
+      framed['@graph'][0]
+    );
+  });
+
 });
