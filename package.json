@@ -1,6 +1,6 @@
 {
   "name": "@scienceai/embed",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "makes trees out of flattened JSON-LD documents",
   "main": "dist/index.js",
   "scripts": {

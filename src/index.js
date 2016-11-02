@@ -15,7 +15,7 @@ export default function embed(node, graph, _nodeMap, _stack) {
     if (keys.length === 1 && keys[0] === '@id') {
       return embedMatch(node, graph, _nodeMap, _stack);
     } else {
-      return Object.keys(node).reduce((tree, p) => {
+      return keys.reduce((tree, p) => {
         let value = node[p];
         if (typeof value === 'string') {
           tree[p] = embedMatch(value, graph, _nodeMap, _stack);
