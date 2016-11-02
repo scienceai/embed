@@ -2,6 +2,8 @@
 
 [![CircleCI](https://circleci.com/gh/scienceai/embed.svg?style=svg)](https://circleci.com/gh/scienceai/embed)
 
+THIS IS NO LONGER MAINTAINED USE [`@scienceai/jsonld`](https://github.com/scienceai/jsonld) instead.
+
 Context free tree creation out of flattened JSON-LD documents.
 
 ## `embed`
